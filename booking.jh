@@ -1,0 +1,69 @@
+
+entity User {
+	userId Integer
+    userName String
+}
+
+entity Restaurant {
+	restaurantId Integer
+    restaurantName String
+    streetAddress String,
+	noOfTables Integer,
+	capacity Integer,
+    timeslot String,
+	available Boolean
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Booking {
+	bookingId Integer,
+	userId Integer,
+	restaurantId Integer,
+	timeslot String,
+    tableNo Integer,
+    noOfGuests Integer
+}
+
+entity CheckAvailability {
+	restaurantId Integer,
+	timeslot String,
+	occupancy Integer,
+	capacity Integer,
+	available Boolean
+}
+
+
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+
+relationship OneToMany {
+	User{userId} to Booking
+}
+
+relationship OneToMany {
+	Restaurant{restaurantId} to Booking
+}
+
+relationship OneToOne {
+	Booking{timeslot} to Restaurant
+}
+
+relationship ManyToOne {
+	CheckAvailability{timeslot} to Restaurant
+}
+
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+//paginate Job with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except User, Restaurant
+// Set an angular suffix
+// angularSuffix * with mySuffix
